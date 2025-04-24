@@ -1,0 +1,77 @@
+//week10-6
+PImage postman,head,body,arm1,hand1,arm2,hand2;
+float [] angle=new float[20];
+int ID=0;
+void mouseDragged(){
+ angle[ID]+=mouseX-pmouseX; 
+}
+void keyPressed(){
+ if(key=='1') ID=1; 
+ if(key=='2') ID=2; 
+ if(key=='3') ID=3; 
+ if(key=='4') ID=4; 
+ if(key=='5') ID=5; 
+ if(key=='6') ID=6; 
+ if(key=='0') ID=0; 
+ 
+ if(key=='s'){
+   String now="";
+   for(int i=0;i<20;i++){
+      now+=" "+angle[i]; 
+   }
+   lines.add(now);
+   String [] arr=new String[lines.size()];
+   lines.toArray(arr);
+   saveStrings("angles.txt",arr);
+ }
+}
+ArrayList<String> lines=new ArrayList<String>();
+void setup(){
+ size(560,560);
+ postman=loadImage("postman.png");
+ head=loadImage("head.png");
+ body=loadImage("body.png");
+ arm1=loadImage("arm1.png");
+ hand1=loadImage("hand1.png");
+ arm2=loadImage("arm2.png");
+ hand2=loadImage("hand2.png");
+}
+void draw(){
+ background(#FFFFF2);
+ image(postman,0,0);
+ fill(255,0,255,128);
+ rect(0,0,560,560);
+ pushMatrix();
+   translate(185,261);
+   rotate(radians(angle[1]));
+   translate(-185,-261);
+   image(arm1,0,0);
+   pushMatrix();
+     translate(116,265);
+     rotate(radians(angle[2]));
+     translate(-116,-265);
+     image(hand1,0,0);
+   popMatrix();
+ popMatrix();
+ 
+ pushMatrix();
+   translate(290,262);
+   rotate(radians(angle[3]));
+   translate(-290,-262);
+   image(arm2,0,0);
+   pushMatrix();
+     translate(357,259);
+     rotate(radians(angle[4]));
+     translate(-357,-259);
+     image(hand2,0,0);
+   popMatrix();
+ popMatrix();
+ 
+ pushMatrix();
+   translate(236,231);
+   rotate(radians(angle[0]));
+   translate(-236,-231);
+   image(head,0,0);
+ popMatrix();
+ image(body,0,0);
+}
