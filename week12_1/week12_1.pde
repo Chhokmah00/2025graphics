@@ -1,0 +1,45 @@
+//week12-1
+//修改自week09-2_gundam_head_body_push_trt_pop
+//再加上week09-5_gundam_uparm_upuparm_hand_keyboard_mouse_rot
+PShape body,head,uparm1,upuparm1,hand1;
+void setup(){
+   size(400,400,P3D); 
+   body=loadShape("body.obj");
+   head=loadShape("head.obj");
+   uparm1=loadShape("uparm1.obj");
+   upuparm1=loadShape("upuparm1.obj");
+   hand1=loadShape("hand1.obj");
+}
+void draw(){
+   background(204);
+   translate(200,300);
+   sphere(10); //原點的球
+    
+   scale(10,-10,10); //y要上下反過來
+   shape(body,0,0);
+   pushMatrix();
+     translate(0,22);
+     rotateY(radians(mouseX-200));
+     rotateX(radians(mouseY-60));
+     translate(0,-22);
+   shape(head,0,0);
+   popMatrix();
+   
+   pushMatrix(); //左邊手臂系列
+      shape(upuparm1,0,0); //上上手臂
+     pushMatrix();
+       translate(-4.1,19.9); //掛回原本的位置
+       rotateZ(radians(mouseX));
+       translate(4.5,-19.9); //把物體旋轉中心放到座標中
+       shape(uparm1,0,0); //上手臂
+       pushMatrix();
+         translate(-4.5,16.9);
+         rotateX(radians(mouseY));
+         translate(4.5,-16.9);
+         //translate(mouseX/10,-mouseY/10); //移動、找數值
+         //println(mouseX/10,-mouseY/10); //印出適合的數值
+         shape(hand1,0,0);
+       popMatrix();
+     popMatrix();
+   popMatrix();
+}
